@@ -6,14 +6,17 @@ import org.omg.CORBA.Object;
 import BackEnd.*;
 import BackEnd.Utilities.*;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by pandan on 5/2/2017.
  */
 public class Missile extends GameObject{
 
-    ObjectHandler handler;
+
     public Missile(int x, int y, int targetX, int targetY, ObjectHandler handler){
         setCurrentX(x);
         setCurrentY(y);
@@ -28,12 +31,43 @@ public class Missile extends GameObject{
     double initialX;
     double initialY;
 
-    private Collider collision;
 
+    ObjectHandler handler;
+    javax.swing.Timer tm;
+    ActionListener ac ;
+
+    boolean timeUp = false;
+
+    private Collider collision;
+    @Override
+    public void Start() {
+
+        collision = new Collider(getCurrentX() + 4,getCurrentY() + 4,10,10);
+        initialX = getCurrentX();
+        initialY = getCurrentY();
+
+        ac = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+             timeUp = true;
+            }
+        };
+
+        tm = new Timer(10000,ac);
+
+        objectID = "playermissile";
+
+        c = collision;
+    }
 
 
     @Override
     public void Update() {
+
+        if(timeUp){
+            tm.removeActionListener(ac);
+            handler.RemoveObject(this);
+        }
 
 
         //get angle of the target
@@ -53,7 +87,9 @@ public class Missile extends GameObject{
             handler.RemoveObject(this);
 
         }
-        collision.CheckCollision(new Collider(0,0,0,0));
+
+
+
         collision.UpdateLocation(getCurrentX(),getCurrentY());
 
     }
@@ -66,13 +102,7 @@ public class Missile extends GameObject{
         collision.RenderCollider(graphics);
     }
 
-    @Override
-    public void Start() {
 
-    collision = new Collider(getCurrentX() + 4,getCurrentY() + 4,10,10);
-        initialX = getCurrentX();
-        initialY = getCurrentY();
-    }
 
 
 }

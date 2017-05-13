@@ -22,7 +22,10 @@ public class Collider  {
 
     public boolean CheckCollision(Collider collider) {
        return rectangle.intersects(collider.rectangle);
+    }
 
+    public Rectangle GetBounds(){
+        return rectangle;
     }
 
     public void RenderCollider(Graphics g){

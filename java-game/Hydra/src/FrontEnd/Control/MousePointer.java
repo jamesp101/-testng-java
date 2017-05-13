@@ -79,11 +79,11 @@ public class MousePointer extends GameObject implements MouseListener{
     public void Render(Graphics graphics){
         Graphics2D graphics2D =(Graphics2D) graphics;
         graphics2D.drawImage(image,(int)getCurrentX(),(int)getCurrentY(),32,32,this);
-        AffineTransform old = graphics2D.getTransform();
+      /*  AffineTransform old = graphics2D.getTransform();
         graphics2D.rotate(Math.toDegrees(40));
         graphics2D.setTransform(old);
 
-
+    */
 
 
     }
