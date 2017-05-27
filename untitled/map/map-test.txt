@@ -1,0 +1,3 @@
+createobject: main.Game.Foo
+createobject: main.Game.SampleObject
+createobject: main.Game.Map.SampleObject2
